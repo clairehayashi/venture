@@ -1,0 +1,1434 @@
+<!-- Navbar -->
+<nav>
+  <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <a href="#" class="logo">ElderLink</a>
+      <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How it Works</a>
+          <a href="#blog">Blog</a>
+      </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <div id="matrix-container" class="matrix-container">
+      <div id="matrix" class="matrix"></div>
+  </div>
+  <div class="container">
+      <h1>With one click, switch your house into nursing mode, no installation.</h1>
+      <p>AI nursing system that protects the elderly in house</p>
+      <a href="#" class="btn">Get Free Access</a>
+  </div>
+</section>
+
+<!-- Features Grid -->
+<section class="features" id="features">
+  <div class="container">
+      <div class="feature-grid">
+          <div class="feature-card">
+              <div class="feature-icon">
+                  <svg viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+              </div>
+              <h3>24/7 Safety Monitoring</h3>
+              <p>Constantly watches for unusual inactivity or emergency situations — even while you sleep.</p>
+          </div>
+          
+          <div class="feature-card">
+              <div class="feature-icon">
+                  <svg viewBox="0 0 24 24">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+              </div>
+              <h3>Respectful Privacy</h3>
+              <p>No cameras, no microphones. Just silent sensing, built with dignity in mind.</p>
+          </div>
+          
+          <div class="feature-card">
+              <div class="feature-icon">
+                  <svg viewBox="0 0 24 24">
+                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                      <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                  </svg>
+              </div>
+              <h3>Frictionless Setup</h3>
+              <p>No devices to wear or install — works with your existing WiFi network.</p>
+          </div>
+          
+          <div class="feature-card">
+              <div class="feature-icon">
+                  <svg viewBox="0 0 24 24">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+              </div>
+              <h3>Peace of Mind, Anywhere</h3>
+              <p>Real-time alerts sent to your phone, wherever you are.</p>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- Main Features Section -->
+<section class="main-features" id="how-it-works">
+  <div class="container">
+      <div class="section-title">
+          <h2>We turn your house into a quiet guardian that watches over your elderly parents day and night<br>— no cameras, no invasion, just fast help when it truly matters.</h2>
+      </div>
+      
+      <div class="main-feature-grid">
+          <div class="main-feature-card">
+              <h3>Instant Alerts</h3>
+              <p>Real-time notifications for caregivers and family members in emergencies.</p>
+          </div>
+          
+          <div class="main-feature-card">
+              <h3>No Hardware</h3>
+              <p>ElderLink runs through your home's existing WiFi network.</p>
+          </div>
+          
+          <div class="main-feature-card">
+              <h3>No Blind Angle</h3>
+              <p>WiFi signals reach every corner of the house for complete coverage.</p>
+          </div>
+          
+          <div class="main-feature-card">
+              <h3>Designed for Dignity</h3>
+              <p>Passive monitoring that respects privacy and independence.</p>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+  <div class="container">
+      <h2>Try ElderLink Today</h2>
+      <p>Peace of mind is one click away. No installation. No commitment. Just care.</p>
+      
+      <div class="btn-group">
+          <a href="#" class="btn">Get Started</a>
+          <a href="#" class="btn-outline">Learn More</a>
+      </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+      <div class="footer-content">
+          <p>ElderLink is dedicated to enhancing the lives of seniors and their caregivers through non-invasive, intelligent monitoring technology.</p>
+          <p class="copyright">© 2025 ElderLink. All rights reserved.</p>
+      </div>
+  </div>
+</footer>
+
+<!-- Add interactive script for WiFi detection -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const matrix = document.getElementById('matrix');
+      const matrixRect = matrix.getBoundingClientRect();
+      const matrixWidth = matrixRect.width;
+      const matrixHeight = matrixRect.height;
+      const dotSpacing = 12; // Denser grid
+      const dots = [];
+      const waves = [];
+
+      // Pulse control variables
+      let lastPulseTime = 0;
+      const pulseCooldown = 700; // Reduced from 800ms to create waves more frequently
+      let cursorInField = false;
+      let cursorX = 0;
+      let cursorY = 0;
+      
+      // Edge buffer to prevent boundary reflection issues
+      const edgeBuffer = 15;
+      
+      // Wave thickness - 16px for thicker waves
+      const waveThickness = 16;
+      
+      // Wave speed - slowed down to make waves last longer
+      const waveSpeed = 3.0; // Reduced from 4.5 to make waves expand more slowly
+      
+      // Wave maximum size - increased to make waves last longer
+      const waveMaxSizeFactor = 1.2; // Increased from 0.8 to let waves grow larger
+      
+      // Maximum wave limit - increased to allow more concurrent waves
+      const maxWaves = 20; // Increased from 14 to allow more overlapping waves
+
+      // Human figure coordinates (rotated 90 degrees clockwise and centered)
+      const humanShape = [
+          // Head (now on the left side)
+          {x: matrixWidth * 0.45, y: matrixHeight * 0.5, r: 15},
+          {x: matrixWidth * 0.46, y: matrixHeight * 0.475, r: 12},
+          {x: matrixWidth * 0.46, y: matrixHeight * 0.525, r: 12},
+          // Body (now horizontal)
+          {x: matrixWidth * 0.48, y: matrixHeight * 0.5, r: 12},
+          {x: matrixWidth * 0.52, y: matrixHeight * 0.5, r: 12},
+          {x: matrixWidth * 0.55, y: matrixHeight * 0.5, r: 12},
+          {x: matrixWidth * 0.58, y: matrixHeight * 0.5, r: 12},
+          // Arms (now vertical)
+          {x: matrixWidth * 0.52, y: matrixHeight * 0.45, r: 10},
+          {x: matrixWidth * 0.52, y: matrixHeight * 0.55, r: 10},
+          {x: matrixWidth * 0.53, y: matrixHeight * 0.43, r: 8},
+          {x: matrixWidth * 0.53, y: matrixHeight * 0.57, r: 8},
+          // Legs (now on the right side)
+          {x: matrixWidth * 0.62, y: matrixHeight * 0.475, r: 10},
+          {x: matrixWidth * 0.62, y: matrixHeight * 0.525, r: 10},
+          {x: matrixWidth * 0.65, y: matrixHeight * 0.46, r: 8},
+          {x: matrixWidth * 0.65, y: matrixHeight * 0.54, r: 8},
+      ];
+
+      // Create dots in a grid and store references to avoid DOM manipulation during animation
+      const dotElements = document.createDocumentFragment();
+      for (let x = 0; x <= matrixWidth; x += dotSpacing) {
+          for (let y = 0; y <= matrixHeight; y += dotSpacing) {
+              const dot = document.createElement('div');
+              dot.className = 'dot';
+              dot.style.left = `${x}px`;
+              dot.style.top = `${y}px`;
+
+              // Check if this dot is part of the human figure
+              let isPerson = false;
+              let personRadius = 0;
+
+              for (const point of humanShape) {
+                  const distance = Math.sqrt(Math.pow(x - point.x, 2) + Math.pow(y - point.y, 2));
+                  if (distance <= point.r) {
+                      isPerson = true;
+                      personRadius = point.r;
+                      break;
+                  }
+              }
+
+              if (isPerson) {
+                  dot.classList.add('person-dot');
+                  dot.style.opacity = '0.5';
+              } else {
+                  dot.style.opacity = '0.5';
+              }
+
+              dotElements.appendChild(dot);
+              dots.push({
+                  element: dot,
+                  x,
+                  y,
+                  originalSize: 3,
+                  originalOpacity: 0.5,
+                  isPerson,
+                  personSize: isPerson ? personRadius / 3 : 0,
+                  active: false
+              });
+          }
+      }
+
+      // Append all dots at once to minimize reflows
+      matrix.appendChild(dotElements);
+
+      // Mouse enter/leave detection for the matrix
+      matrix.addEventListener('mouseenter', () => {
+          cursorInField = true;
+      });
+      
+      matrix.addEventListener('mouseleave', () => {
+          cursorInField = false;
+      });
+
+      // Handle cursor movement
+      document.addEventListener('mousemove', (e) => {
+          const rect = matrix.getBoundingClientRect();
+          const mouseX = e.clientX - rect.left;
+          const mouseY = e.clientY - rect.top;
+          
+          // Update cursor position
+          if (mouseX >= 0 && mouseX <= matrixWidth && mouseY >= 0 && mouseY <= matrixHeight) {
+              cursorInField = true;
+              cursorX = mouseX;
+              cursorY = mouseY;
+          } else {
+              cursorInField = false;
+          }
+      });
+
+      // Generate a unique ID for each wave to track them
+      let waveIdCounter = 0;
+
+      function createWave(x, y, isReflected = false, parentId = null, isSecondPulse = false) {
+          // Ensure wave position is within valid boundaries
+          x = Math.max(edgeBuffer, Math.min(matrixWidth - edgeBuffer, x));
+          y = Math.max(edgeBuffer, Math.min(matrixHeight - edgeBuffer, y));
+          
+          const waveId = waveIdCounter++;
+          
+          // Create a wave at the specified position
+          const wave = {
+              id: waveId,
+              parentId: parentId,
+              x,
+              y,
+              size: isReflected ? 5 : 0, // Start slightly larger for reflected waves
+              growing: true,
+              maxSize: Math.max(matrixWidth, matrixHeight) * waveMaxSizeFactor, 
+              speed: waveSpeed,
+              isReflected: isReflected,
+              isSecondPulse: isSecondPulse, // Track if this is a second pulse
+              reflectionCount: isReflected ? 1 : 0,
+              maxReflections: 1, // Keep at 1 to prevent cascade
+              reflectionThreshold: 25, // Minimum size before reflections can occur
+              boundaries: {
+                  top: false,
+                  bottom: false,
+                  left: false,
+                  right: false
+              },
+              // Adding "persistence" to make dots stay activated longer
+              persistence: 3 // Dots will stay activated for a few frames after wave passes
+          };
+
+          waves.push(wave);
+
+          // Limit number of waves for performance
+          if (waves.length > maxWaves) {
+              waves.shift();
+          }
+          
+          return waveId;
+      }
+      
+      // Create a second pulse after a small delay
+      function createDelayedSecondPulse(x, y) {
+          setTimeout(() => {
+              createWave(x, y, false, null, true); // Mark this as a second pulse
+          }, 200); // 200ms delay for second pulse
+      }
+
+      // Initial wave to show activity when page loads
+      createWave(matrixWidth * 0.3, matrixHeight * 0.3);
+      createDelayedSecondPulse(matrixWidth * 0.3, matrixHeight * 0.3);
+      
+      // Create periodic waves even without mouse movement
+      setInterval(() => {
+          if (!cursorInField) {
+              const randomX = Math.random() * matrixWidth;
+              const randomY = Math.random() * matrixHeight;
+              createWave(randomX, randomY);
+              createDelayedSecondPulse(randomX, randomY);
+          }
+      }, 3000);
+
+      function updateWaves() {
+          const currentTime = Date.now();
+
+          // Create pulses on a timer if cursor is in field
+          if (cursorInField && currentTime - lastPulseTime > pulseCooldown) {
+              createWave(cursorX, cursorY);
+              createDelayedSecondPulse(cursorX, cursorY); // Add a second pulse
+              lastPulseTime = currentTime;
+          }
+
+          // Reset all active dots first to avoid unnecessary DOM updates
+          // Using a more complex structure to store activation data:
+          // Map key = dot index, value = { level: number, opacity: number, isSecondPulse: boolean }
+          const activeDots = new Map(); 
+          
+          // Store new reflections to create after loop to prevent modification during iteration
+          const newReflections = [];
+
+          // Update wave positions
+          for (let waveIndex = waves.length - 1; waveIndex >= 0; waveIndex--) {
+              const wave = waves[waveIndex];
+
+              if (wave.growing) {
+                  wave.size += wave.speed;
+
+                  // Calculate the wave's inner and outer radius
+                  const innerRadius = wave.size - waveThickness/2;
+                  const outerRadius = wave.size + waveThickness/2;
+                  const innerRadiusSq = innerRadius * innerRadius;
+                  const outerRadiusSq = outerRadius * outerRadius;
+
+                  // Affect dots with the wave - use more efficient distance calculations
+                  for (let i = 0; i < dots.length; i++) {
+                      const dot = dots[i];
+
+                      // Calculate distance using squared values to avoid square root (faster)
+                      const dx = dot.x - wave.x;
+                      const dy = dot.y - wave.y;
+                      const distSquared = dx*dx + dy*dy;
+
+                      // If the dot is within the wave's ring
+                      if (distSquared >= innerRadiusSq && distSquared <= outerRadiusSq) {
+                          // If this is a second pulse wave, mark dots with half opacity
+                          const opacity = wave.isSecondPulse ? 0.5 : 1.0;
+                          
+                          if (!activeDots.has(i)) {
+                              // First activation for this dot
+                              activeDots.set(i, { 
+                                  level: wave.persistence, 
+                                  opacity: opacity,
+                                  isSecondPulse: wave.isSecondPulse 
+                              });
+                          } else {
+                              // Dot already activated by another wave
+                              const currentDot = activeDots.get(i);
+                              
+                              // Keep the highest activation level and priority
+                              // Primary waves (not second pulses) take precedence
+                              if (!currentDot.isSecondPulse || wave.isSecondPulse) {
+                                  if (currentDot.level < wave.persistence) {
+                                      currentDot.level = wave.persistence;
+                                  }
+                                  
+                                  // Primary waves overwrite second pulse opacity
+                                  if (!wave.isSecondPulse) {
+                                      currentDot.opacity = 1.0;
+                                      currentDot.isSecondPulse = false;
+                                  }
+                              }
+                          }
+                      }
+                  }
+                  
+                  // Check for boundary reflections - but only after a minimum size
+                  // and only if we haven't exceeded maximum reflections
+                  if (wave.reflectionCount < wave.maxReflections && wave.size > wave.reflectionThreshold) {
+                      // Calculate wave boundary distances
+                      const distToTop = wave.y - wave.size;
+                      const distToBottom = matrixHeight - (wave.y + wave.size);
+                      const distToLeft = wave.x - wave.size;
+                      const distToRight = matrixWidth - (wave.x + wave.size);
+                      
+                      // Top boundary reflection
+                      if (distToTop <= 0 && !wave.boundaries.top) {
+                          wave.boundaries.top = true;
+                          
+                          // Calculate correct reflection position using proper mirror formula
+                          // Add extra buffer based on wave thickness to prevent cascading reflections
+                          const reflectionX = wave.x; 
+                          const reflectionY = 2 * edgeBuffer - distToTop + waveThickness;
+                          
+                          newReflections.push({
+                              x: reflectionX,
+                              y: reflectionY,
+                              parentId: wave.id,
+                              isSecondPulse: wave.isSecondPulse
+                          });
+                      }
+                      
+                      // Bottom boundary reflection
+                      if (distToBottom <= 0 && !wave.boundaries.bottom) {
+                          wave.boundaries.bottom = true;
+                          
+                          const reflectionX = wave.x;
+                          const reflectionY = matrixHeight - 2 * edgeBuffer + distToBottom - waveThickness;
+                          
+                          newReflections.push({
+                              x: reflectionX,
+                              y: reflectionY,
+                              parentId: wave.id,
+                              isSecondPulse: wave.isSecondPulse
+                          });
+                      }
+                      
+                      // Left boundary reflection
+                      if (distToLeft <= 0 && !wave.boundaries.left) {
+                          wave.boundaries.left = true;
+                          
+                          const reflectionX = 2 * edgeBuffer - distToLeft + waveThickness;
+                          const reflectionY = wave.y;
+                          
+                          newReflections.push({
+                              x: reflectionX,
+                              y: reflectionY,
+                              parentId: wave.id,
+                              isSecondPulse: wave.isSecondPulse
+                          });
+                      }
+                      
+                      // Right boundary reflection
+                      if (distToRight <= 0 && !wave.boundaries.right) {
+                          wave.boundaries.right = true;
+                          
+                          const reflectionX = matrixWidth - 2 * edgeBuffer + distToRight - waveThickness;
+                          const reflectionY = wave.y;
+                          
+                          newReflections.push({
+                              x: reflectionX,
+                              y: reflectionY,
+                              parentId: wave.id,
+                              isSecondPulse: wave.isSecondPulse
+                          });
+                      }
+                  }
+
+                  // Remove wave when it's too big
+                  if (wave.size > wave.maxSize) {
+                      waves.splice(waveIndex, 1);
+                  }
+              }
+          }
+          
+          // Create new reflections outside the main loop to prevent mutation issues
+          for (const reflection of newReflections) {
+              createWave(reflection.x, reflection.y, true, reflection.parentId, reflection.isSecondPulse);
+          }
+
+          // Decrease persistence counter for activated dots
+          const activeDotsSet = new Set();
+          const activationData = new Map();
+          
+          activeDots.forEach((data, key) => {
+              const newLevel = data.level - 1;
+              if (newLevel > 0) {
+                  activeDotsSet.add(key);
+                  activationData.set(key, {
+                      opacity: data.opacity,
+                      isSecondPulse: data.isSecondPulse
+                  });
+              }
+          });
+
+          // Apply visual changes to dots (batched operations)
+          for (let i = 0; i < dots.length; i++) {
+              const dot = dots[i];
+
+              if (activeDotsSet.has(i)) {
+                  // Get activation data for this dot
+                  const data = activationData.get(i);
+                  const activeOpacity = data.opacity;
+                  
+                  // Active dot
+                  if (dot.isPerson) {
+                      // Person dots grow larger when detected
+                      dot.element.style.width = `${dot.personSize * 2.5}px`;
+                      dot.element.style.height = `${dot.personSize * 2.5}px`;
+                      dot.element.style.opacity = `${activeOpacity}`;
+                      dot.element.style.backgroundColor = '#e63946'; // Red when detected
+                  } else {
+                      // Regular dot effect
+                      dot.element.style.width = '7px';
+                      dot.element.style.height = '7px';
+                      dot.element.style.opacity = `${activeOpacity}`;
+                  }
+              } else {
+                  // Inactive dot - reset to original state
+                  dot.element.style.width = `${dot.originalSize}px`;
+                  dot.element.style.height = `${dot.originalSize}px`;
+                  dot.element.style.opacity = `${dot.originalOpacity}`;
+                  if (dot.isPerson) {
+                      dot.element.style.backgroundColor = '#3a86ff';
+                  }
+              }
+          }
+
+          requestAnimationFrame(updateWaves);
+      }
+
+      // Start animation
+      updateWaves();
+  });
+</script>
+</body>
+</html>    <!-- Footer -->
+<footer>
+  <div class="container">
+      <div class="footer-content">
+          <p>ElderLink is dedicated to enhancing the lives of seniors and their caregivers through non-invasive, intelligent monitoring technology.</p>
+          <p class="copyright">© 2025 ElderLink. All rights reserved.</p>
+      </div>
+  </div>
+</footer>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElderLink - WiFi Monitoring for Elderly Care</title>
+<style>
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  body {
+      background-color: #fafafa;
+      color: #333;
+      line-height: 1.6;
+  }
+  
+  .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+  }
+  
+  /* Navbar */
+  nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      position: fixed;
+      width: 100%;
+      background: rgba(250, 250, 250, 0.95);
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+  }
+  
+  .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #3a7bd5;
+      text-decoration: none;
+  }
+  
+  .nav-links {
+      display: flex;
+      gap: 2rem;
+  }
+  
+  .nav-links a {
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+      color: #3a7bd5;
+  }
+  
+  /* Hero Section */
+  /* Hero Section */
+  .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+  }
+  
+  .matrix-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f7f7f7;
+  }
+  
+  .matrix {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .dot {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background-color: #3a86ff;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+  }
+  
+  .person-dot {
+      background-color: #3a86ff;
+  }
+  
+  .hero h1 {
+      max-width: 800px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+      z-index: 1;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 20px;
+      border-radius: 8px;
+  }
+  
+  .hero p {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      color: #666;
+      text-align: center;
+      z-index: 1;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px;
+      border-radius: 4px;
+  }
+  
+  .hero .btn {
+      z-index: 1;
+  }
+  
+  .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background-color: #3a7bd5;
+      color: white;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+  }
+  
+  .btn:hover {
+      background-color: #2a6ac5;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(58, 123, 213, 0.2);
+  }
+  
+  /* Features Section */
+  .features {
+      padding: 3rem 0;
+      background-color: #fafafa;
+  }
+  
+  .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 1.5rem;
+      position: relative;
+  }
+  
+  .feature-grid::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 25%;
+      width: 1px;
+      background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .feature-grid::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .feature-grid > div:nth-child(3)::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 75%;
+      width: 1px;
+      background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .feature-card {
+      padding: 1.5rem;
+      transition: transform 0.3s ease;
+  }
+  
+  .feature-card:hover {
+      transform: translateY(-3px);
+  }
+  
+  .feature-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      color: #000;
+  }
+  
+  .feature-card p {
+      color: #666;
+      font-size: 0.95rem;
+  }
+  
+  .feature-icon {
+      margin-bottom: 1rem;
+      display: inline-block;
+  }
+  
+  .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: #999;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+  }
+  
+  /* Main Features Section */
+  .main-features {
+      padding: 5rem 0;
+  }
+  
+  .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+  }
+  
+  .section-title h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+  }
+  
+  .main-feature-grid {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 1.5rem;
+      justify-content: space-between;
+  }
+  
+  .main-feature-card {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+      flex: 1;
+  }
+  
+  .main-feature-card:hover {
+      transform: translateY(-5px);
+  }
+  
+  .main-feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+  }
+  
+  .main-feature-card p {
+      color: #666;
+      font-size: 0.95rem;
+  }
+  
+  /* CTA Section */
+  .cta {
+      padding: 5rem 0;
+      text-align: center;
+      background-color: #f5f7fa;
+  }
+  
+  .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+  }
+  
+  .cta p {
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+      color: #666;
+  }
+  
+  .btn-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+  }
+  
+  .btn-outline {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background-color: transparent;
+      color: #3a7bd5;
+      border: 2px solid #3a7bd5;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+  }
+  
+  .btn-outline:hover {
+      background-color: rgba(58, 123, 213, 0.1);
+      transform: translateY(-2px);
+  }
+  
+  /* Footer */
+  footer {
+      padding: 3rem 0;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+  }
+  
+  .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+  }
+  
+  .copyright {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #aaa;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+      .hero h1 {
+          font-size: 2rem;
+      }
+      
+      .nav-links {
+          display: none;
+      }
+      
+      .feature-grid,
+      .main-feature-grid {
+          grid-template-columns: 1fr;
+      }
+      
+      .btn-group {
+          flex-direction: column;
+          gap: 1rem;
+      }
+  }
+</style>
+</head>
+<body>
+<!-- Navbar -->
+<nav>
+  <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <a href="#" class="logo">ElderLink</a>
+      <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How it Works</a>
+          <a href="#blog">Blog</a>
+      </div>
+  </div>
+</nav>
+
+      <!-- Hero Section -->
+<section class="hero" id="home">
+  <div id="matrix-container" class="matrix-container">
+      <div id="matrix" class="matrix"></div>
+  </div>
+  <div class="container">
+      <h1>With one click, switch your house into nursing mode, no installation.</h1>
+      <p>AI nursing system that protects the elderly in house</p>
+      <a href="#" class="btn">Get Free Access</a>
+  </div>
+</section>
+
+<!-- Features Grid -->
+<section class="features" id="features">
+  <div class="container">
+      <div class="feature-grid">
+          <div class="feature-card">
+              <div class="feature-icon">
+                  <svg viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+              </div>
+              <h3>24/7 Safety Monitoring</h3>
+              <p>Constantly watches for unusual inactivity or emergency situations — even while you sleep.</p>
+          </div>
+          
+          <div class="feature-card">
+              <div class="feature-icon">
+                  <svg viewBox="0 0 24 24">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+              </div>
+              <h3>Respectful Privacy</h3>
+              <p>No cameras, no microphones. Just silent sensing, built with dignity in mind.</p>
+          </div>
+          
+          <div class="feature-card">
+              <div class="feature-icon">
+                  <svg viewBox="0 0 24 24">
+                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                      <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                  </svg>
+              </div>
+              <h3>Frictionless Setup</h3>
+              <p>No devices to wear or install — works with your existing WiFi network.</p>
+          </div>
+          
+          <div class="feature-card">
+              <div class="feature-icon">
+                  <svg viewBox="0 0 24 24">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+              </div>
+              <h3>Peace of Mind, Anywhere</h3>
+              <p>Real-time alerts sent to your phone, wherever you are.</p>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- Main Features Section -->
+<section class="main-features" id="how-it-works">
+  <div class="container">
+      <div class="section-title">
+          <h2>We turn your house into a quiet guardian that watches over your elderly parents day and night<br>— no cameras, no invasion, just fast help when it truly matters.</h2>
+      </div>
+      
+      <div class="main-feature-grid">
+          <div class="main-feature-card">
+              <h3>Instant Alerts</h3>
+              <p>Real-time notifications for caregivers and family members in emergencies.</p>
+          </div>
+          
+          <div class="main-feature-card">
+              <h3>No Hardware</h3>
+              <p>ElderLink runs through your home's existing WiFi network.</p>
+          </div>
+          
+          <div class="main-feature-card">
+              <h3>No Blind Angle</h3>
+              <p>WiFi signals reach every corner of the house for complete coverage.</p>
+          </div>
+          
+          <div class="main-feature-card">
+              <h3>Designed for Dignity</h3>
+              <p>Passive monitoring that respects privacy and independence.</p>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+  <div class="container">
+      <h2>Try ElderLink Today</h2>
+      <p>Peace of mind is one click away. No installation. No commitment. Just care.</p>
+      
+      <div class="btn-group">
+          <a href="#" class="btn">Get Started</a>
+          <a href="#" class="btn-outline">Learn More</a>
+      </div>
+  </div>
+</section>
+
+<!-- Add interactive script for WiFi detection -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const matrix = document.getElementById('matrix');
+      const matrixRect = matrix.getBoundingClientRect();
+      const matrixWidth = matrixRect.width;
+      const matrixHeight = matrixRect.height;
+      const dotSpacing = 12; // Denser grid
+      const dots = [];
+      const waves = [];
+
+      // Pulse control variables
+      let lastPulseTime = 0;
+      const pulseCooldown = 700; // Reduced from 800ms to create waves more frequently
+      let cursorInField = false;
+      let cursorX = 0;
+      let cursorY = 0;
+      
+      // Edge buffer to prevent boundary reflection issues
+      const edgeBuffer = 15;
+      
+      // Wave thickness - 16px for thicker waves
+      const waveThickness = 16;
+      
+      // Wave speed - slowed down to make waves last longer
+      const waveSpeed = 3.0; // Reduced from 4.5 to make waves expand more slowly
+      
+      // Wave maximum size - increased to make waves last longer
+      const waveMaxSizeFactor = 1.2; // Increased from 0.8 to let waves grow larger
+      
+      // Maximum wave limit - increased to allow more concurrent waves
+      const maxWaves = 20; // Increased from 14 to allow more overlapping waves
+
+      // Human figure coordinates (rotated 90 degrees clockwise and centered)
+      const humanShape = [
+          // Head (now on the left side)
+          {x: matrixWidth * 0.45, y: matrixHeight * 0.5, r: 15},
+          {x: matrixWidth * 0.46, y: matrixHeight * 0.475, r: 12},
+          {x: matrixWidth * 0.46, y: matrixHeight * 0.525, r: 12},
+          // Body (now horizontal)
+          {x: matrixWidth * 0.48, y: matrixHeight * 0.5, r: 12},
+          {x: matrixWidth * 0.52, y: matrixHeight * 0.5, r: 12},
+          {x: matrixWidth * 0.55, y: matrixHeight * 0.5, r: 12},
+          {x: matrixWidth * 0.58, y: matrixHeight * 0.5, r: 12},
+          // Arms (now vertical)
+          {x: matrixWidth * 0.52, y: matrixHeight * 0.45, r: 10},
+          {x: matrixWidth * 0.52, y: matrixHeight * 0.55, r: 10},
+          {x: matrixWidth * 0.53, y: matrixHeight * 0.43, r: 8},
+          {x: matrixWidth * 0.53, y: matrixHeight * 0.57, r: 8},
+          // Legs (now on the right side)
+          {x: matrixWidth * 0.62, y: matrixHeight * 0.475, r: 10},
+          {x: matrixWidth * 0.62, y: matrixHeight * 0.525, r: 10},
+          {x: matrixWidth * 0.65, y: matrixHeight * 0.46, r: 8},
+          {x: matrixWidth * 0.65, y: matrixHeight * 0.54, r: 8},
+      ];
+
+      // Create dots in a grid and store references to avoid DOM manipulation during animation
+      const dotElements = document.createDocumentFragment();
+      for (let x = 0; x <= matrixWidth; x += dotSpacing) {
+          for (let y = 0; y <= matrixHeight; y += dotSpacing) {
+              const dot = document.createElement('div');
+              dot.className = 'dot';
+              dot.style.left = `${x}px`;
+              dot.style.top = `${y}px`;
+
+              // Check if this dot is part of the human figure
+              let isPerson = false;
+              let personRadius = 0;
+
+              for (const point of humanShape) {
+                  const distance = Math.sqrt(Math.pow(x - point.x, 2) + Math.pow(y - point.y, 2));
+                  if (distance <= point.r) {
+                      isPerson = true;
+                      personRadius = point.r;
+                      break;
+                  }
+              }
+
+              if (isPerson) {
+                  dot.classList.add('person-dot');
+                  dot.style.opacity = '0.5';
+              } else {
+                  dot.style.opacity = '0.5';
+              }
+
+              dotElements.appendChild(dot);
+              dots.push({
+                  element: dot,
+                  x,
+                  y,
+                  originalSize: 3,
+                  originalOpacity: 0.5,
+                  isPerson,
+                  personSize: isPerson ? personRadius / 3 : 0,
+                  active: false
+              });
+          }
+      }
+
+      // Append all dots at once to minimize reflows
+      matrix.appendChild(dotElements);
+
+      // Mouse enter/leave detection for the matrix
+      matrix.addEventListener('mouseenter', () => {
+          cursorInField = true;
+      });
+      
+      matrix.addEventListener('mouseleave', () => {
+          cursorInField = false;
+      });
+
+      // Handle cursor movement
+      document.addEventListener('mousemove', (e) => {
+          const rect = matrix.getBoundingClientRect();
+          const mouseX = e.clientX - rect.left;
+          const mouseY = e.clientY - rect.top;
+          
+          // Update cursor position
+          if (mouseX >= 0 && mouseX <= matrixWidth && mouseY >= 0 && mouseY <= matrixHeight) {
+              cursorInField = true;
+              cursorX = mouseX;
+              cursorY = mouseY;
+          } else {
+              cursorInField = false;
+          }
+      });
+
+      // Generate a unique ID for each wave to track them
+      let waveIdCounter = 0;
+
+      function createWave(x, y, isReflected = false, parentId = null, isSecondPulse = false) {
+          // Ensure wave position is within valid boundaries
+          x = Math.max(edgeBuffer, Math.min(matrixWidth - edgeBuffer, x));
+          y = Math.max(edgeBuffer, Math.min(matrixHeight - edgeBuffer, y));
+          
+          const waveId = waveIdCounter++;
+          
+          // Create a wave at the specified position
+          const wave = {
+              id: waveId,
+              parentId: parentId,
+              x,
+              y,
+              size: isReflected ? 5 : 0, // Start slightly larger for reflected waves
+              growing: true,
+              maxSize: Math.max(matrixWidth, matrixHeight) * waveMaxSizeFactor, 
+              speed: waveSpeed,
+              isReflected: isReflected,
+              isSecondPulse: isSecondPulse, // Track if this is a second pulse
+              reflectionCount: isReflected ? 1 : 0,
+              maxReflections: 1, // Keep at 1 to prevent cascade
+              reflectionThreshold: 25, // Minimum size before reflections can occur
+              boundaries: {
+                  top: false,
+                  bottom: false,
+                  left: false,
+                  right: false
+              },
+              // Adding "persistence" to make dots stay activated longer
+              persistence: 3 // Dots will stay activated for a few frames after wave passes
+          };
+
+          waves.push(wave);
+
+          // Limit number of waves for performance
+          if (waves.length > maxWaves) {
+              waves.shift();
+          }
+          
+          return waveId;
+      }
+      
+      // Create a second pulse after a small delay
+      function createDelayedSecondPulse(x, y) {
+          setTimeout(() => {
+              createWave(x, y, false, null, true); // Mark this as a second pulse
+          }, 200); // 200ms delay for second pulse
+      }
+
+      // Initial wave to show activity when page loads
+      createWave(matrixWidth * 0.3, matrixHeight * 0.3);
+      createDelayedSecondPulse(matrixWidth * 0.3, matrixHeight * 0.3);
+      
+      // Create periodic waves even without mouse movement
+      setInterval(() => {
+          if (!cursorInField) {
+              const randomX = Math.random() * matrixWidth;
+              const randomY = Math.random() * matrixHeight;
+              createWave(randomX, randomY);
+              createDelayedSecondPulse(randomX, randomY);
+          }
+      }, 3000);
+
+      function updateWaves() {
+          const currentTime = Date.now();
+
+          // Create pulses on a timer if cursor is in field
+          if (cursorInField && currentTime - lastPulseTime > pulseCooldown) {
+              createWave(cursorX, cursorY);
+              createDelayedSecondPulse(cursorX, cursorY); // Add a second pulse
+              lastPulseTime = currentTime;
+          }
+
+          // Reset all active dots first to avoid unnecessary DOM updates
+          // Using a more complex structure to store activation data:
+          // Map key = dot index, value = { level: number, opacity: number, isSecondPulse: boolean }
+          const activeDots = new Map(); 
+          
+          // Store new reflections to create after loop to prevent modification during iteration
+          const newReflections = [];
+
+          // Update wave positions
+          for (let waveIndex = waves.length - 1; waveIndex >= 0; waveIndex--) {
+              const wave = waves[waveIndex];
+
+              if (wave.growing) {
+                  wave.size += wave.speed;
+
+                  // Calculate the wave's inner and outer radius
+                  const innerRadius = wave.size - waveThickness/2;
+                  const outerRadius = wave.size + waveThickness/2;
+                  const innerRadiusSq = innerRadius * innerRadius;
+                  const outerRadiusSq = outerRadius * outerRadius;
+
+                  // Affect dots with the wave - use more efficient distance calculations
+                  for (let i = 0; i < dots.length; i++) {
+                      const dot = dots[i];
+
+                      // Calculate distance using squared values to avoid square root (faster)
+                      const dx = dot.x - wave.x;
+                      const dy = dot.y - wave.y;
+                      const distSquared = dx*dx + dy*dy;
+
+                      // If the dot is within the wave's ring
+                      if (distSquared >= innerRadiusSq && distSquared <= outerRadiusSq) {
+                          // If this is a second pulse wave, mark dots with half opacity
+                          const opacity = wave.isSecondPulse ? 0.5 : 1.0;
+                          
+                          if (!activeDots.has(i)) {
+                              // First activation for this dot
+                              activeDots.set(i, { 
+                                  level: wave.persistence, 
+                                  opacity: opacity,
+                                  isSecondPulse: wave.isSecondPulse 
+                              });
+                          } else {
+                              // Dot already activated by another wave
+                              const currentDot = activeDots.get(i);
+                              
+                              // Keep the highest activation level and priority
+                              // Primary waves (not second pulses) take precedence
+                              if (!currentDot.isSecondPulse || wave.isSecondPulse) {
+                                  if (currentDot.level < wave.persistence) {
+                                      currentDot.level = wave.persistence;
+                                  }
+                                  
+                                  // Primary waves overwrite second pulse opacity
+                                  if (!wave.isSecondPulse) {
+                                      currentDot.opacity = 1.0;
+                                      currentDot.isSecondPulse = false;
+                                  }
+                              }
+                          }
+                      }
+                  }
+                  
+                  // Check for boundary reflections - but only after a minimum size
+                  // and only if we haven't exceeded maximum reflections
+                  if (wave.reflectionCount < wave.maxReflections && wave.size > wave.reflectionThreshold) {
+                      // Calculate wave boundary distances
+                      const distToTop = wave.y - wave.size;
+                      const distToBottom = matrixHeight - (wave.y + wave.size);
+                      const distToLeft = wave.x - wave.size;
+                      const distToRight = matrixWidth - (wave.x + wave.size);
+                      
+                      // Top boundary reflection
+                      if (distToTop <= 0 && !wave.boundaries.top) {
+                          wave.boundaries.top = true;
+                          
+                          // Calculate correct reflection position using proper mirror formula
+                          // Add extra buffer based on wave thickness to prevent cascading reflections
+                          const reflectionX = wave.x; 
+                          const reflectionY = 2 * edgeBuffer - distToTop + waveThickness;
+                          
+                          newReflections.push({
+                              x: reflectionX,
+                              y: reflectionY,
+                              parentId: wave.id,
+                              isSecondPulse: wave.isSecondPulse
+                          });
+                      }
+                      
+                      // Bottom boundary reflection
+                      if (distToBottom <= 0 && !wave.boundaries.bottom) {
+                          wave.boundaries.bottom = true;
+                          
+                          const reflectionX = wave.x;
+                          const reflectionY = matrixHeight - 2 * edgeBuffer + distToBottom - waveThickness;
+                          
+                          newReflections.push({
+                              x: reflectionX,
+                              y: reflectionY,
+                              parentId: wave.id,
+                              isSecondPulse: wave.isSecondPulse
+                          });
+                      }
+                      
+                      // Left boundary reflection
+                      if (distToLeft <= 0 && !wave.boundaries.left) {
+                          wave.boundaries.left = true;
+                          
+                          const reflectionX = 2 * edgeBuffer - distToLeft + waveThickness;
+                          const reflectionY = wave.y;
+                          
+                          newReflections.push({
+                              x: reflectionX,
+                              y: reflectionY,
+                              parentId: wave.id,
+                              isSecondPulse: wave.isSecondPulse
+                          });
+                      }
+                      
+                      // Right boundary reflection
+                      if (distToRight <= 0 && !wave.boundaries.right) {
+                          wave.boundaries.right = true;
+                          
+                          const reflectionX = matrixWidth - 2 * edgeBuffer + distToRight - waveThickness;
+                          const reflectionY = wave.y;
+                          
+                          newReflections.push({
+                              x: reflectionX,
+                              y: reflectionY,
+                              parentId: wave.id,
+                              isSecondPulse: wave.isSecondPulse
+                          });
+                      }
+                  }
+
+                  // Remove wave when it's too big
+                  if (wave.size > wave.maxSize) {
+                      waves.splice(waveIndex, 1);
+                  }
+              }
+          }
+          
+          // Create new reflections outside the main loop to prevent mutation issues
+          for (const reflection of newReflections) {
+              createWave(reflection.x, reflection.y, true, reflection.parentId, reflection.isSecondPulse);
+          }
+
+          // Decrease persistence counter for activated dots
+          const activeDotsSet = new Set();
+          const activationData = new Map();
+          
+          activeDots.forEach((data, key) => {
+              const newLevel = data.level - 1;
+              if (newLevel > 0) {
+                  activeDotsSet.add(key);
+                  activationData.set(key, {
+                      opacity: data.opacity,
+                      isSecondPulse: data.isSecondPulse
+                  });
+              }
+          });
+
+          // Apply visual changes to dots (batched operations)
+          for (let i = 0; i < dots.length; i++) {
+              const dot = dots[i];
+
+              if (activeDotsSet.has(i)) {
+                  // Get activation data for this dot
+                  const data = activationData.get(i);
+                  const activeOpacity = data.opacity;
+                  
+                  // Active dot
+                  if (dot.isPerson) {
+                      // Person dots grow larger when detected
+                      dot.element.style.width = `${dot.personSize * 2.5}px`;
+                      dot.element.style.height = `${dot.personSize * 2.5}px`;
+                      dot.element.style.opacity = `${activeOpacity}`;
+                      dot.element.style.backgroundColor = '#e63946'; // Red when detected
+                  } else {
+                      // Regular dot effect
+                      dot.element.style.width = '7px';
+                      dot.element.style.height = '7px';
+                      dot.element.style.opacity = `${activeOpacity}`;
+                  }
+              } else {
+                  // Inactive dot - reset to original state
+                  dot.element.style.width = `${dot.originalSize}px`;
+                  dot.element.style.height = `${dot.originalSize}px`;
+                  dot.element.style.opacity = `${dot.originalOpacity}`;
+                  if (dot.isPerson) {
+                      dot.element.style.backgroundColor = '#3a86ff';
+                  }
+              }
+          }
+
+          requestAnimationFrame(updateWaves);
+      }
+
+      // Start animation
+      updateWaves();
+  });
+</script>
